@@ -21,3 +21,11 @@ export function ceckLogin() {
         url: '/auth',
     })
 }
+
+export function registration(params: any) {
+    return axios({
+        method: 'post',
+        url: '/auth/signup',
+        data: params
+    })
+}
