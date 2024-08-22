@@ -11,6 +11,7 @@ import Dummy from "@/lib/Dummy1";
 import FooterComponent from "@/components/layout/footer";
 import { numberFormat } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const router = useRouter()
@@ -34,8 +35,8 @@ export default function Home() {
           <div className="deskripsi mx-auto my-auto text-white font-bold w-1/2 flex flex-col gap-2 tracking-wide max-sm:w-full max-sm:pl-4">
             <p className="text-6xl my-3 tracking-wide max-sm:text-4xl">Cita Rasa</p>
             {/* Adalah platform lengkap untuk pemesanan dan pengantaran makanan, serta tempat berbagi inspirasi kuliner dengan komunitas yang aktif dan berbagi resep lezat. */}
-            <p className="bg-amber-500 w-max text-6xl rounded-md px-1 max-sm:text-xl">Nikmati Hidangan,</p>
-            <p className="bg-amber-500 w-max text-6xl rounded-md px-1 max-sm:text-xl">Temukan Inspirasi</p>
+            <p className="bg-[#00AA5B] w-max text-6xl rounded-md px-1 max-sm:text-xl">Nikmati Hidangan,</p>
+            <p className="bg-[#00AA5B] w-max text-6xl rounded-md px-1 max-sm:text-xl">Temukan Inspirasi</p>
           </div>
 
           <div className="absolute w-56 h-56 top-1/3 right-1/4 backdrop-blur-sm bg-amber-500/30 rounded-full flex items-center justify-center text-center font-semibold text-6xl max-sm:w-32 max-sm:h-32 max-sm:text-3xl max-sm:right-4">100% ORI</div>
@@ -56,9 +57,9 @@ export default function Home() {
             {Array.isArray(product) && product.map((item: any, i: number) => {
               return (
                 <Card
-                  onClick={() => router.push(`/detail/${item.id}`)}
                   key={i}
-                  className="p-2 w-full sm:w-[calc(50%-14px)] md:w-[calc(33.3333%-14px)] lg:w-[17.5rem] cursor-pointer hover:shadow-2xl transition-all hover:border-amber-500">
+                  onClick={() => router.push(`/detail/${item.id}`)}
+                  className="p-2 w-full sm:w-[calc(50%-14px)] md:w-[calc(33.3333%-14px)] lg:w-[17.5rem] cursor-pointer hover:shadow-2xl transition-all hover:border-[#00AA5B]">
                   <div className="relative">
                     <img className="w-full h-52 object-cover mb-2" src="https://placehold.co/500x500" alt="Product Image" />
                     
@@ -75,7 +76,7 @@ export default function Home() {
             })}
 
             <div className="w-full text-center my-5">
-              <Badge className="bg-amber-500 hover:bg-amber-600 shadow-xl cursor-pointer text-sm">See more</Badge>
+              <Button className="shadow-xl cursor-pointer text-sm border-[#00AA5B]" variant='outline'>See more</Button>
             </div>
           </div>
         </div>
@@ -87,8 +88,8 @@ export default function Home() {
             {Dummy.map(({ title }, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center p-6 bg-yellow-500 rounded-full w-40 h-40 shadow-lg">
-                <span className="text-sm sm:text-md md:text-lg lg:text-[15px] tracking-wide text-amber-900 font-semibold">{title}</span>
+                className="flex flex-1 flex-col items-center justify-center p-6 bg-[#00AA5B] rounded-md w-40 h-40 shadow-lg">
+                <span className="text-sm sm:text-md md:text-lg lg:text-[15px] tracking-wide text-white font-semibold">{title}</span>
               </div>
             ))}
           </div>
