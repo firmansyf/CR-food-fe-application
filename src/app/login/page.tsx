@@ -16,6 +16,7 @@ import Link from 'next/link';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 import * as Yup from 'yup'
 import { Toggle } from '@/components/ui/toggle';
+import ToastMessage from '@/components/toast-message';
 
 const validateSchema = Yup.object().shape({
     username: Yup.string().required('Username wajib di isi'),
@@ -34,8 +35,8 @@ const LoginPage: FC = () => {
 
         login(params).then(({ data }) => {
             router.push('/')
-        }).catch((err) => {
-            console.log('err :', err)
+        }).catch(({response : {data}}) => {
+            ToastMessage({type: 'error', message: data.message})
         })
      }
     
@@ -74,13 +75,14 @@ const LoginPage: FC = () => {
                                     <span className='text-sm text-red-500'><ErrorMessage name='username' /></span>
                                 </div>
                                 <div>
-                                    <label htmlFor="">Password</label>
+                                    <label htmlFor="">Password<span className='text-red-500'>&#42;</span></label>
                                         <div className={`flex items-center gap-1 ${customStyle.field}`}>
                                             <Field type={showPassword ? 'text' : 'password'}  name='password' placeholder='Enter password' className={`w-full outline-none`} />
                                             <Toggle onClick={togglePasswordVisibility} >
                                                 {showPassword ? <EyeIcon className='w-5'  /> : <EyeSlashIcon className='w-5' />}
                                             </Toggle>
                                         </div>
+                                        <span className='text-sm text-red-500'><ErrorMessage name='password' /></span>
                                     </div>
 
                                 <div className='mt-4 w-full flex justify-between items-center'>
