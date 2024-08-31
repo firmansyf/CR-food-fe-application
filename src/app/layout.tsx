@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import {Quicksand} from 'next/font/google'
 import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ControllerProvider } from "@/context";
-import { ToastContainer,  } from 'react-toastify';
+import { ToastContainer, } from 'react-toastify';
+import NavbarComponent from "@/components/layout/navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const quicksand = Quicksand({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Cita Rasa",
@@ -19,8 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={quicksand.className}>
         <ControllerProvider>
+          <NavbarComponent />
           {children}
           <ToastContainer />
         </ControllerProvider>

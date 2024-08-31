@@ -9,7 +9,10 @@ import { useControllerContext, setOpenSidenav, CeckLogin, isLogout} from '@/cont
 import { useRouter } from 'next/navigation';
 import ProfileDropdown from './../elements/profile-dropdown/index';
 import { UserIcon } from '@heroicons/react/16/solid';
+import { Coiny } from 'next/font/google';
+import { Button } from '../ui/button';
 
+const coinny = Coiny({ subsets: ["latin"], weight: '400'});
 const NavbarComponent: FC = () => {
     const router = useRouter()
     const [controller, dispatch] = useControllerContext()
@@ -35,48 +38,18 @@ const NavbarComponent: FC = () => {
     }
     
     return (
-        <>
-        <div className='w-4/5 z-50 flex justify-between items-center top-3 px-4 py-1 rounded-lg bg-white fixed max-sm:w-11/12 shadow-md'>
-        <div className='logo flex gap-2 items-center'>
-            <Toggle variant="outline" aria-label="Toggle italic" className='hidden max-sm:block' onClick={() => setOpenSidenav(dispatch, !controller.openSidenav)}>
-            <Bars3Icon className="h-4 w-4" />
-            </Toggle>
-            <Link href='/'>
-            <Image
-                src="/logo-cita-rasa.png"
-                width={60}
-                height={60}
-                alt="Picture of the author"
-                className='rounded-full'
-                />
-            </Link>
-        </div>
-        <div className='nav-link flex gap-3 items-center'>
-            <Link href={'/'} className={`${customStyle.navLink}`}>Home</Link>
-            <Link href={'/'} className={`${customStyle.navLink}`}>Produk</Link>
-            <Link href={'/'} className={`${customStyle.navLink}`}>Kategory</Link>
-            <Link href={'/'} className={`${customStyle.navLink}`}>Resep Kami</Link>
-            <div className='mx-5 flex items-center' />
-            <div className='flex gap-2 items-center'>
-                {data?.loggin === true ? (
-                    <ProfileDropdown onLogout={onLogout}>
-                        <Toggle className={`bg-gray-100 outline-none border border-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200`}>
-                            <UserIcon className='w-7' />
-                        </Toggle>
-                    </ProfileDropdown>
-                ) : (
-                    <>
-                        <Link href={'/login'} className={`text-sm text-white bg-[#00AA5B] hover:bg-green-600 p-2 rounded-md w-1/2`}>
-                            <span>Login</span>
-                        </Link>
-                        <span className='text-black'>|</span>
-                        <Link href={'/register'} className={`text-sm text-[#00AA5B]`}>Daftar</Link>
-                    </>       
-                )}
-                </div>
+        <nav className='bg-white flex justify-between items-center py-3 px-7 sticky top-0'>
+            <h1 className={`${coinny.className} color-primary text-2xl`}>Cita Rasa</h1>
+            <div className='flex items-center gap-6 font-semibold text-sm'>
+                <Link href={'/'} className=''>Produk</Link>
+                <Link href={'/'} className=''>Resep Makana</Link>
+                <Link href={'/'} className=''>About</Link>
             </div>
+            <div className='flex justify-between gap-2'>
+                <Button size={'sm'} variant={'outline'} className='border border-[#2B9348]'>Daftar</Button>
+                <Button size={'sm'} className=''>Masuk</Button>
             </div>
-        </>
+        </nav>
     )
 }
 
