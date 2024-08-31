@@ -53,7 +53,7 @@ const LoginPage: FC = () => {
     return (
         <main className='min-h-screen flex justify-center items-center'>
             <NavbarComponent />
-            <Card className='w-1/3 p-5 bg-white border-amber-500'>
+            <Card className='w-1/3 p-5 bg-white border-[#00AA5B]'>
                 <CardHeader>
                     <CardTitle className='text-3xl'>Cita Rasa Login Page</CardTitle>
                 </CardHeader>
@@ -86,7 +86,7 @@ const LoginPage: FC = () => {
                                     </div>
 
                                 <div className='mt-4 w-full flex justify-between items-center'>
-                                    <Button className='bg-amber-500 text-slate-700 hover:bg-amber-600'>Submit</Button>
+                                    <Button className='bg-[#00AA5B] text-white hover:bg-green-700'>Submit</Button>
 
                                     <span className='text-sm'>
                                         Belum punya akun? 

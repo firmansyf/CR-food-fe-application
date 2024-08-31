@@ -1,10 +1,22 @@
 "use client"
 
-import { ceckLogin, logout } from '@/service/auth';
+import { ceckLogin, logout, me } from '@/service/auth';
 import React, { useReducer, useMemo, createContext } from 'react'
 
 
 export const GlobalContext = createContext(null)
+
+export const meUser = async (dispatch) => {
+  try {
+    const response = await me();
+
+    // Dispatch action with the fetched data
+    dispatch({ type: 'SUCCESS_ME', data: response.data });
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+    dispatch({ type: 'ERROR_ME', error: error.response.data });
+  }
+};
 
 export const CeckLogin = async (dispatch) => {
     try {
@@ -34,6 +46,12 @@ export const reducer = (state, action) => {
     switch (action.type) {
         case 'OPEN_SIDENAV' : {
             return {...state, openSidenav: action.value}
+        }
+        case 'SUCCESS_ME': {
+            return { ...state, me: action.data };
+        }
+        case 'ERROR_ME': {
+            return { ...state, meError: action.error };
         }
         case 'CECK_SUCCESS_LOGIN': {
             return { ...state, data: action.data };

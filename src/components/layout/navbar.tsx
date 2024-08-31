@@ -4,7 +4,7 @@ import { Bars3Icon } from '@heroicons/react/20/solid';
 import { Toggle } from "@/components/ui/toggle"
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 import { useControllerContext, setOpenSidenav, CeckLogin, isLogout} from '@/context';
 import { useRouter } from 'next/navigation';
 import ProfileDropdown from './../elements/profile-dropdown/index';
@@ -14,11 +14,10 @@ const NavbarComponent: FC = () => {
     const router = useRouter()
     const [controller, dispatch] = useControllerContext()
     const { data, error } = controller || {}
-    const [show, setShow] = useState<boolean>(false)
     
     useEffect(() => {
         CeckLogin(dispatch)
-    }, [dispatch])
+    }, [])
     
     const customStyle = {
         navLink: 'text-[14px] text-black hover:text-black hover:underline underline-offset-4 max-sm:hidden'
@@ -55,16 +54,17 @@ const NavbarComponent: FC = () => {
         <div className='nav-link flex gap-3 items-center'>
             <Link href={'/'} className={`${customStyle.navLink}`}>Home</Link>
             <Link href={'/'} className={`${customStyle.navLink}`}>Produk</Link>
+            <Link href={'/'} className={`${customStyle.navLink}`}>Kategory</Link>
             <Link href={'/'} className={`${customStyle.navLink}`}>Resep Kami</Link>
             <div className='mx-5 flex items-center' />
             <div className='flex gap-2 items-center'>
-                        {data?.loggin === true ? (
-                            <ProfileDropdown onLogout={onLogout}>
-                                <Toggle className={`bg-gray-100 outline-none`}>
-                                    <UserIcon className='w-7' />
-                                </Toggle>
-                            </ProfileDropdown>
-                    ) : (
+                {data?.loggin === true ? (
+                    <ProfileDropdown onLogout={onLogout}>
+                        <Toggle className={`bg-gray-100 outline-none border border-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200`}>
+                            <UserIcon className='w-7' />
+                        </Toggle>
+                    </ProfileDropdown>
+                ) : (
                     <>
                         <Link href={'/login'} className={`text-sm text-white bg-[#00AA5B] hover:bg-green-600 p-2 rounded-md w-1/2`}>
                             <span>Login</span>
@@ -72,7 +72,7 @@ const NavbarComponent: FC = () => {
                         <span className='text-black'>|</span>
                         <Link href={'/register'} className={`text-sm text-[#00AA5B]`}>Daftar</Link>
                     </>       
-                    )}
+                )}
                 </div>
             </div>
             </div>

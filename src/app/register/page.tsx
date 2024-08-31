@@ -57,7 +57,7 @@ const RegistrationPage: FC = () => {
     return (
         <main className='min-h-screen flex justify-center items-center'>
             <NavbarComponent />
-            <Card className='w-1/2 mt-12 bg-white border-amber-500'>
+            <Card className='w-1/2 mt-12 bg-white border-[#00AA5B]'>
                 <CardHeader>
                     <CardTitle className='tracking-wide'>Form Registration</CardTitle>
                 </CardHeader>
@@ -130,7 +130,7 @@ const RegistrationPage: FC = () => {
 
 
                                     <div className='w-full'>
-                                        <Button type='submit' className='bg-amber-500 text-slate-700 hover:bg-amber-600'>Submit</Button>
+                                        <Button type='submit' className='bg-[#00AA5B] text-white hover:bg-green-700'>Submit</Button>
                                     </div>
                                 </Form>
                             )
