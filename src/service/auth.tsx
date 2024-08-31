@@ -1,5 +1,12 @@
 import { axios } from '@/lib/axios';
 
+export function me() {
+    return axios({
+        method: 'get',
+        url: '/auth/me',
+    })
+}
+
 export function login(params: any) {
     return axios({
         method: 'post',
