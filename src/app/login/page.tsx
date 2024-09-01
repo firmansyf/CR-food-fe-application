@@ -11,18 +11,19 @@ import { login } from '@/service/auth';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react'
-import NavbarComponent  from '@/components/layout/navbar';
 import Link from 'next/link';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 import * as Yup from 'yup'
 import { Toggle } from '@/components/ui/toggle';
 import ToastMessage from '@/components/toast-message';
+import { Coiny } from 'next/font/google';
 
 const validateSchema = Yup.object().shape({
     username: Yup.string().required('Username wajib di isi'),
     password: Yup.string().required('Password wajib di isi')
 })
 
+const coinny = Coiny({ subsets: ["latin"], weight: '400'});
 const LoginPage: FC = () => {
     const router = useRouter()
     const [showPassword, setShowPassword] = useState<any>(false);
@@ -51,11 +52,11 @@ const LoginPage: FC = () => {
     }
 
     return (
-        <main className='min-h-screen flex justify-center items-center'>
-            <NavbarComponent />
-            <Card className='w-1/3 p-5 bg-white border-[#00AA5B]'>
+        <main className='flex flex-col gap-9 justify-center my-20 items-center m-0'>
+            <h1 className={`text-4xl ${coinny.className} color-primary`}>Cita Rasa</h1>
+            <Card className='w-1/3 p-5 bg-white'>
                 <CardHeader>
-                    <CardTitle className='text-3xl'>Cita Rasa Login Page</CardTitle>
+                    <CardTitle className='text-3xl text-center'>Masuk ke Akun Anda</CardTitle>
                 </CardHeader>
 
                 <CardContent className=''> 

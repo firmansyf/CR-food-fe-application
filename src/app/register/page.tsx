@@ -10,6 +10,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 import { registration } from '@/service/auth';
 import ToastMessage from '@/components/toast-message';
 import { useRouter } from 'next/navigation';
+import { Coiny } from 'next/font/google';
 import * as Yup from 'yup'
 
 const validateSchema = Yup.object().shape({
@@ -21,6 +22,7 @@ const validateSchema = Yup.object().shape({
     password: Yup.string().required('Password wajib di isi')
 })
 
+const coinny = Coiny({ subsets: ["latin"], weight: '400'});
 const RegistrationPage: FC = () => {
     const router = useRouter()
     const [showPassword, setShowPassword] = useState<any>(false);
@@ -55,9 +57,9 @@ const RegistrationPage: FC = () => {
     }
 
     return (
-        <main className='min-h-screen flex justify-center items-center'>
-            <NavbarComponent />
-            <Card className='w-1/2 mt-12 bg-white border-[#00AA5B]'>
+        <main className='flex flex-col justify-center items-center my-10'>
+            <h1 className={`${coinny.className} color-primary text-2xl`}>Cita Rasa</h1>
+            <Card className='w-1/2 mt-2 bg-white'>
                 <CardHeader>
                     <CardTitle className='tracking-wide'>Form Registration</CardTitle>
                 </CardHeader>
