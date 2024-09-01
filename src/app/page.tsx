@@ -2,27 +2,42 @@
 
 import NavbarComponent from "@/components/layout/navbar";
 import Sidenav from "@/components/layout/sidenav";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { getProduct } from "@/service/product";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import { useState, useEffect, useMemo } from "react";
-import { Badge } from "@/components/ui/badge"
-import Dummy from "@/lib/Dummy1";
-import FooterComponent from "@/components/layout/footer";
-import { numberFormat } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import CardProduk from "@/components/elements/card-produk";
+import DetailProduk from "@/components/elements/detail-produk";
+
 
 export default function Home() {
   const router = useRouter()
   const [product, setDataProduct] = useState<any[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const [detail, setDetail] = useState(null)
   
   useEffect(() => {
-    getProduct().then(({data} : any) => {
-      setDataProduct(data)
-    }).catch((err) => console.log('Something an errors : ', err))
-  }, [])
+    setLoading(true); // Set loading to true when starting the data fetch
+    const fetchData = async () => {
+      try {
+        const { data } = await getProduct();
+        setDataProduct(data);
+      } catch (err) {
+        console.log('Something went wrong: ', err);
+      } finally {
+        setLoading(false); // Set loading to false when data is fetched or an error occurs
+      }
+    };
   
+    setTimeout(() => {
+      fetchData();
+    }, 1000);
+  }, []);
+
+  const onDetail = (val : any) => {
+    setDetail(val)
+  }
 
   return (
     <>
@@ -36,23 +51,23 @@ export default function Home() {
                 <option>Mkn. Mentah</option>
                 <option>Bahan bahan</option>
               </select>
-              <input type="text" className="outline-none w-full bg-transparent" placeholder="Cari Produk ( cth. Keripik Singkong )" />
+              <input type="text" className="outline-none w-full bg-transparent" placeholder="Cari makanan ( cth. Keripik Singkong )" />
+              <MagnifyingGlassIcon className='w-7 text-[#AEADAD]'/>
             </div>
           </div>
 
-
-          <div className="mt-7 h-[90vh]">
-           <Card className="h-full">
-       
+          <div className="mt-7">
+            <Card className={`${loading ? 'h-[90vh]' : 'h-full'} p-1 overflow-y-auto`}>
+              <CardProduk data={product} loading={loading} onClick={onDetail} />
             </Card>
           </div>
         </div>
 
 
-        <div className="w-1/3 h-[90vh]">
-          <Card className="h-full">
-            
-          </Card>
+        <div className="w-1/3 h-[90vh] sticky top-16 -z-50">
+          <div className={`h-full flex w-full ${detail !== null ? '' : 'justify-center items-center border-2 bg-white rounded-xl'}`}>
+            <DetailProduk detail={detail} />
+          </div>
         </div>
       </main>
     </>

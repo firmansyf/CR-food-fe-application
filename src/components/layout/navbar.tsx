@@ -11,10 +11,12 @@ import ProfileDropdown from './../elements/profile-dropdown/index';
 import { UserIcon } from '@heroicons/react/16/solid';
 import { Coiny } from 'next/font/google';
 import { Button } from '../ui/button';
+import { usePathname } from 'next/navigation'
 
 const coinny = Coiny({ subsets: ["latin"], weight: '400'});
 const NavbarComponent: FC = () => {
     const router = useRouter()
+    const pathname = usePathname()
     const [controller, dispatch] = useControllerContext()
     const { data, error } = controller || {}
     
@@ -23,7 +25,8 @@ const NavbarComponent: FC = () => {
     }, [])
     
     const customStyle = {
-        navLink: 'text-[14px] text-black hover:text-black hover:underline underline-offset-4 max-sm:hidden'
+        navLink: 'transition-all duration-300 ease-in-out',
+        active: 'bg-[#2B9348] py-1 px-2 text-white rounded-md'
     }
 
     const onLogout = async (e : any) => {
@@ -38,16 +41,16 @@ const NavbarComponent: FC = () => {
     }
     
     return (
-        <nav className='bg-white flex justify-between items-center py-3 px-7 sticky top-0'>
+        <nav className='bg-white flex justify-between items-center py-3 px-7 sticky top-0 shadow-sm'>
             <h1 className={`${coinny.className} color-primary text-2xl`}>Cita Rasa</h1>
-            <div className='flex items-center gap-6 font-semibold text-sm'>
-                <Link href={'/'} className=''>Produk</Link>
-                <Link href={'/'} className=''>Resep Makana</Link>
-                <Link href={'/'} className=''>About</Link>
+            <div className='flex items-center gap-6 font-semibold text-sm '>
+                <Link href={'/'} className={`link ${customStyle.navLink} ${pathname === '/' ? customStyle.active : ''}`}>Produk</Link>
+                <Link href={'/resep-makanan'} className={`link ${customStyle.navLink} ${pathname === '/resep-makanan' ? customStyle.active : ''}`}>Resep Makana</Link>
+                <Link href={'/tentang-kami'} className={`link ${customStyle.navLink} ${pathname === '/tentang-kami' ? customStyle.active : ''}`}>Tentang Kami</Link>
             </div>
             <div className='flex justify-between gap-2'>
                 <Button size={'sm'} variant={'outline'} className='border border-[#2B9348]'>Daftar</Button>
-                <Button size={'sm'} className=''>Masuk</Button>
+                <Button size={'sm'} onClick={() => router.push('/login')} className=''>Masuk</Button>
             </div>
         </nav>
     )
