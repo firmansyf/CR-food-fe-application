@@ -15,6 +15,7 @@ export default function Home() {
   const router = useRouter()
   const [product, setDataProduct] = useState<any[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const [loadingSpinner, setLoadingSpinner] = useState<boolean>(false)
   const [detail, setDetail] = useState(null)
   
   useEffect(() => {
@@ -36,7 +37,11 @@ export default function Home() {
   }, []);
 
   const onDetail = (val : any) => {
-    setDetail(val)
+    setLoadingSpinner(true)
+    setTimeout(() => { 
+      setLoadingSpinner(false)
+      setDetail(val) 
+    }, 700)
   }
 
   return (
@@ -66,7 +71,7 @@ export default function Home() {
 
         <div className="w-1/3 h-[90vh] sticky top-16 -z-50">
           <div className={`h-full flex w-full ${detail !== null ? '' : 'justify-center items-center border-2 bg-white rounded-xl'}`}>
-            <DetailProduk detail={detail} />
+            <DetailProduk detail={detail} loading={loadingSpinner} />
           </div>
         </div>
       </main>
