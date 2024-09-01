@@ -4,26 +4,32 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { numberFormat } from '@/lib/utils';
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import SpinnerLoad from "@/components/ui/spinner";
 
 interface Props {
     detail: any
+    loading : boolean
 }
 
-export default function DetailProduk({ detail }: Props) {
+export default function DetailProduk({ detail, loading }: Props) {
     const customStyle = {
         label: 'text-[#AEADAD]'
     }
 
     return (
         <Fragment>
-            {detail !== null ? (
-                <Card className='w-full'>
-                    <CardHeader className="bg-[#EEE] p-5">
-                        <CardTitle className='tracking-wide'>{detail.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="py-3 px-4 flex flex-col">
-                        <div className="flex items-center gap-2">
-                            <div className="w-1/3">
+            {detail !== null ? (    
+                 <Card className='w-full'>
+                        {loading ? (
+                         <SpinnerLoad label="Tunggu sebentar..." loading={loading} />
+                        ) : (
+                          <>     
+                            <CardHeader className="bg-[#EEE] p-5">
+                                <CardTitle className='tracking-wide'>{detail.name}</CardTitle>
+                            </CardHeader>
+                            <CardContent className={`py-3 px-4 flex flex-col ${loading ? 'items-center justify-center' : ''}`}>
+                            <div className="flex items-center gap-2">
+                              <div className="w-1/3">
                                 <img
                                     src="https://placehold.co/600x400"
                                     className="rounded"
@@ -36,22 +42,25 @@ export default function DetailProduk({ detail }: Props) {
                                 <span className=''>Stok : <strong>{detail.stock}</strong></span>
                                 <span className=''>Kategori : <strong className='capitalize'>{ detail?.categories?.map((item) => item.name) }</strong></span>
                             </div>
-                        </div>
+                            </div>
 
-                         <Separator className='my-5' />
+                                <Separator className='my-5' />
 
-                        <div className="flex flex-col gap-1">
-                            <span className={`${customStyle.label}`}>Deskripsi</span>
-                            <p className='text-sm tracking-wide'>{detail.description}</p>
-                        </div>
+                            <div className="flex flex-col gap-1">
+                                <span className={`${customStyle.label}`}>Deskripsi</span>
+                                <p className='text-sm tracking-wide'>{detail.description}</p>
+                            </div>
 
-                        <div className='mt-4'>
-                            <Button variant='outline' className='border-2 border-[#2B9348]'>Link Resep</Button>
-                        </div>
+                            <div className='mt-4'>
+                                <Button variant='outline' className='border-2 border-[#2B9348]'>Link Resep</Button>
+                            </div>
 
-                        <div></div>
+                            <div></div>
                     </CardContent>
-                </Card>
+                          </>
+                        )}
+                   </Card>                         
+            
             ): (        
             <section className="flex flex-col items-center justify-center gap-3">
                 <div>
